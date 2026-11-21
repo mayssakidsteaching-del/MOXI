@@ -1,0 +1,112 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User preferences and MOXI companion settings",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "preferredLanguage": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "voiceEnabled": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "displayName", "preferredLanguage", "voiceEnabled", "createdAt", "updatedAt"]
+    },
+    "RobotMemory": {
+      "title": "RobotMemory",
+      "description": "Personal fact remembered by MOXI for a signed-in user",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "key", "value", "createdAt", "updatedAt"]
+    },
+    "RobotHighlight": {
+      "title": "RobotHighlight",
+      "description": "Saved conversation highlight between user and MOXI",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "speaker": {
+          "type": "string",
+          "enum": ["user", "moxi"],
+          "maxLength": 16
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "emotion": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerId", "speaker", "text", "emotion", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profile and MOXI robot preferences"
+    },
+    "/users/{userId}/memories/{memoryId}": {
+      "schema": { "$ref": "#/entities/RobotMemory" },
+      "description": "Persistent facts remembered by MOXI"
+    },
+    "/users/{userId}/highlights/{highlightId}": {
+      "schema": { "$ref": "#/entities/RobotHighlight" },
+      "description": "Recent spoken highlights from MOXI conversations"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #090b10;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes scanline-sweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(0px) scale(0.8);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-48px) scale(1.15);
+    opacity: 0;
+  }
+}
+
+@keyframes equalizer-bar {
+  0%, 100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-scanline {
+  animation: scanline-sweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float-particle {
+  animation: float-particle 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-eq-bar {
+  animation: equalizer-bar 0.55s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scanline,
+  .animate-float-particle,
+  .animate-eq-bar {
+    animation: none !important;
+  }
+}

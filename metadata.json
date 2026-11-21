@@ -1,0 +1,6 @@
+{
+  "name": "MOXI — Living Desk Robot",
+  "description": "Turn your phone or browser into a living, expressive AI desk companion with real-time vision, voice, force-control motion tracking, and persistent memory.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
